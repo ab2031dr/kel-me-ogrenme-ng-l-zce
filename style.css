@@ -1,0 +1,155 @@
+:root{
+  --bg:#0e1624;
+  --card:#172a45;
+  --muted:#7ea0c4;
+  --text:#e6f0ff;
+  --accent:#6ea8fe;
+  --accent-2:#8ad0ff;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: radial-gradient(1200px 800px at 80% -10%, #1e2f52 0%, transparent 60%) , var(--bg);
+  color:var(--text);
+  font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";
+}
+
+/* Topbar */
+.topbar{
+  position:sticky; top:0;
+  display:flex; align-items:center; gap:16px;
+  padding:12px 18px; background:rgba(10,16,28,.7);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  z-index:50;
+}
+.app-title{margin:0; font-size:20px; font-weight:800}
+
+/* Ortadaki büyük butonlar */
+.action-bar{
+  display:flex; justify-content:center; gap:16px;
+  margin:18px auto;
+}
+.btn.big{
+  padding:16px 26px; font-size:18px; border-radius:999px;
+}
+.btn{
+  appearance:none; border:none; cursor:pointer;
+  color:var(--text); background:rgba(255,255,255,.08);
+  padding:10px 14px; border-radius:12px; font-weight:600;
+  transition:.15s transform,.15s opacity,.15s background;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn.primary{background:linear-gradient(135deg, var(--accent), var(--accent-2))}
+.btn.success{background:linear-gradient(135deg, #34d399, #22c55e)}
+.btn.danger{background:linear-gradient(135deg, #fb7185, #ef4444)}
+.btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.15)}
+.btn.round{border-radius:50%; width:38px; height:38px; display:grid; place-items:center}
+.btn.tiny{padding:6px 10px; font-size:12px}
+.btn.xl{padding:14px 24px; font-size:18px}
+
+/* Layout */
+.container{max-width:1000px; margin:0 auto; padding:0 16px 32px}
+.view{animation:fade .2s ease}
+@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+/* Cards */
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow);
+  border-radius:var(--radius);
+  padding:18px;
+}
+.card.hero{max-width:720px; margin:0 auto}
+.card.session{display:flex; flex-direction:column; gap:16px}
+
+/* Level grid */
+.level-grid{
+  margin-top:10px; display:grid; gap:12px;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+}
+.level-btn{
+  padding:16px 10px; border-radius:30px; border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05); color:var(--text);
+  font-weight:800; letter-spacing:.5px; cursor:pointer; transition:.15s;
+}
+.level-btn:hover{background:rgba(255,255,255,.1); transform:translateY(-1px)}
+.level-btn.active{background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#001025}
+.start-row{display:flex; justify-content:center; margin-top:18px}
+
+/* Session */
+.session-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px}
+.word-en{margin:0; font-size:36px; letter-spacing:.4px}
+.badge-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+.chip{font-size:12px; padding:6px 10px; border-radius:999px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:var(--muted)}
+
+/* TR box */
+.tr-box{padding:12px; border-radius:14px; background:var(--card);
+  border:1px solid rgba(255,255,255,.1)}
+.tr-header{display:flex; justify-content:space-between; align-items:center; color:var(--muted)}
+.tr-text{margin-top:8px; font-size:18px; font-weight:700; letter-spacing:.2px}
+.tr-box:not(.revealed) .tr-text{filter:blur(7px); opacity:.6;}
+
+/* Examples */
+.section-title{margin:16px 0 8px; color:var(--muted); font-weight:800; letter-spacing:.3px}
+.ex-grid{display:grid; gap:12px; grid-template-columns:repeat(2, minmax(0,1fr))}
+.ex-card{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+  border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:6px}
+.ex-en{font-weight:800}
+.ex-tr{font-size:14px; color:var(--muted)}
+.ex-tr.masked{filter:blur(6px); cursor:pointer}
+.ex-tr.masked::after{content:"  (göster)" ; color:#9cd3ff}
+.ex-missing{font-size:12px; color:#9cb3cc; opacity:.9}
+
+/* Saved */
+.saved-list{display:grid; gap:14px}
+.saved-item{border:1px solid rgba(255,255,255,.1); border-radius:16px;
+  background:rgba(255,255,255,.04)}
+.saved-head{display:flex; align-items:center; gap:10px; padding:10px 12px}
+.round-icon{width:46px; height:46px; border-radius:50%; display:grid; place-items:center;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#001025; font-weight:900}
+.saved-title{font-weight:800; font-size:18px}
+.saved-body{padding:12px}
+.ex-wrap{margin:8px 0}
+.note{width:100%; min-height:90px; resize:vertical; background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1); color:var(--text); padding:10px; border-radius:12px; outline:none}
+.btn-row{display:flex; gap:10px; margin-top:10px}
+
+/* “TR ekle” inputu */
+.ex-edit{display:flex; gap:8px; align-items:center; margin-top:6px}
+.ex-edit input{flex:1; padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05); color:var(--text); outline:none}
+
+/* Toast */
+#toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:#001e3a; color:var(--text); padding:10px 14px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.12); opacity:0; pointer-events:none; transition:.2s}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
+
+/* Modal */
+#kc-modal{position:fixed; inset:0; display:none}
+#kc-modal.open{display:block}
+.kc-overlay{position:absolute; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(4px)}
+.kc-dialog{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(520px, calc(100% - 32px)); background:var(--card); border:1px solid rgba(255,255,255,.12);
+  border-radius:16px; box-shadow:var(--shadow); padding:16px}
+.kc-message{font-size:16px; margin-bottom:14px}
+.kc-actions{display:flex; gap:10px; justify-content:flex-end}
+
+/* Mobil */
+@media (max-width:720px){
+  .action-bar{flex-direction:column; align-items:center}
+  .ex-grid{grid-template-columns:1fr}
+  .word-en{font-size:30px}
+}
+ul{padding-left:18px; margin:6px 0 0}
+h2,h3{margin:0 0 6px}

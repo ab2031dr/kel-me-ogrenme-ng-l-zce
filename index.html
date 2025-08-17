@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kelime Çalış</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Üst Bar -->
+  <header class="topbar">
+    <button id="btn-back" class="btn round ghost" title="Geri">←</button>
+    <h1 class="app-title">Kelime Çalış</h1>
+  </header>
+
+  <!-- ORTADAKİ BÜYÜK BUTONLAR -->
+  <div class="action-bar">
+    <button id="nav-learn" class="btn big primary">Kelime Öğren</button>
+    <button id="nav-saved" class="btn big">Kaydedilmiş Kelimeler</button>
+  </div>
+
+  <!-- Ana İçerik -->
+  <main class="container">
+
+    <!-- HOME -->
+    <section id="view-home" class="view">
+      <div class="card hero">
+        <h2>Nasıl kullanılır?</h2>
+        <ul>
+          <li><strong>Kelime Öğren</strong>’e gir → seviye seç (A1–C2) → <em>Başlat</em>.</li>
+          <li>TR kutusu kapalı gelir; kutuya basınca Türkçesi açılır.</li>
+          <li>Beğendiğin kelimeyi <em>Kaydet</em> → not ekleyebilir, silebilirsin.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LEVEL SELECT -->
+    <section id="view-level" class="view" style="display:none">
+      <div class="card">
+        <h2>Seviyeni Seç</h2>
+        <div id="level-grid" class="level-grid">
+          <button class="level-btn" data-level="A1">A1</button>
+          <button class="level-btn" data-level="A2">A2</button>
+          <button class="level-btn" data-level="B1">B1</button>
+          <button class="level-btn" data-level="B2">B2</button>
+          <button class="level-btn" data-level="C1">C1</button>
+          <button class="level-btn" data-level="C2">C2</button>
+        </div>
+        <div class="start-row">
+          <button id="btn-start" class="btn primary xl">Başlat</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SESSION -->
+    <section id="view-session" class="view" style="display:none">
+      <div class="card session">
+        <div class="session-head">
+          <div>
+            <h2 id="word-en" class="word-en">—</h2>
+            <div id="word-badges" class="badge-row"></div>
+          </div>
+          <div class="session-actions">
+            <button id="btn-next" class="btn">Sonraki</button>
+            <button id="btn-save" class="btn success">Kaydet</button>
+          </div>
+        </div>
+
+        <!-- Türkçe kutu -->
+        <div id="tr-box" class="tr-box">
+          <div class="tr-header">
+            <span>Türkçesi</span>
+            <button id="tr-toggle" class="btn tiny ghost">Göster / Gizle</button>
+          </div>
+          <div id="tr-text" class="tr-text">—</div>
+        </div>
+
+        <!-- Örnekler -->
+        <h3 class="section-title">Cümle içinde kullanım (5)</h3>
+        <div id="examples-list" class="ex-grid"></div>
+      </div>
+    </section>
+
+    <!-- SAVED -->
+    <section id="view-saved" class="view" style="display:none">
+      <h2>Kaydedilmiş Kelimeler</h2>
+      <div id="saved-list" class="saved-list"></div>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Modal -->
+  <div id="kc-modal">
+    <div class="kc-overlay"></div>
+    <div class="kc-dialog">
+      <div class="kc-message"></div>
+      <div class="kc-actions">
+        <button class="btn danger" id="kc-ok">Onayla</button>
+        <button class="btn ghost" id="kc-cancel">İptal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS (sıra önemli!) -->
+  <script src="words.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
