@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kelimelik • Öğren & Tekrar</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Üst çubuk -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">●</span>
+      <h1>Kelimelik</h1>
+    </div>
+
+    <div class="top-actions">
+      <button id="btn-stats" class="btn ghost">İstatistikler</button>
+      <button id="btn-quiz" class="btn ghost">Quiz</button>
+
+      <!-- 5 temalı seçici -->
+      <div class="theme-select">
+        <label for="themeSelect" class="muted" style="margin-right:6px;">Tema</label>
+        <select id="themeSelect" class="select">
+          <option value="light">Light</option>
+          <option value="dark" selected>Dark</option>
+          <option value="ocean">Ocean</option>
+          <option value="forest">Forest</option>
+          <option value="sunset">Sunset</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 1) ANA EKRAN -->
+    <section id="view-home" class="view active">
+      <nav class="main-nav">
+        <button id="go-learn" class="btn primary">Kelime Öğren</button>
+        <button id="go-saved" class="btn">Kaydedilmiş Kelimeler</button>
+      </nav>
+    </section>
+
+    <!-- 2) SEVİYE SEÇİMİ -->
+    <section id="view-levels" class="view">
+      <nav class="main-nav">
+        <button id="back-home-1" class="btn">← Geri</button>
+        <div style="flex:1"></div>
+      </nav>
+
+      <section class="level-row">
+        <div class="levels">
+          <button class="level active" data-level="A1">A1</button>
+          <button class="level" data-level="A2">A2</button>
+          <button class="level" data-level="B1">B1</button>
+          <button class="level" data-level="B2">B2</button>
+          <button class="level" data-level="C1">C1</button>
+          <button class="level" data-level="C2">C2</button>
+        </div>
+        <button id="btn-start" class="btn success">Başlat</button>
+      </section>
+    </section>
+
+    <!-- 3) ÖĞRENME EKRANI -->
+    <section id="view-learn" class="view">
+      <nav class="main-nav">
+        <button id="back-levels" class="btn">← Geri</button>
+        <div style="flex:1"></div>
+      </nav>
+
+      <div id="word-card" class="card fade-in">
+        <div class="word-head">
+          <span id="word-level" class="pill">A1</span>
+          <span id="word-pos" class="pill outline">noun</span>
+        </div>
+
+        <h2 id="word-en" class="word">kelime</h2>
+
+        <div class="pair">
+          <div class="pair-col">
+            <div class="pair-label">İngilizce</div>
+            <div id="word-en-plain" class="pair-val">-</div>
+          </div>
+          <div class="pair-col">
+            <div class="pair-label">Türkçe</div>
+            <button id="btn-show-tr" class="btn outline small">Türkçeyi Göster</button>
+            <div id="word-tr" class="pair-val hidden">-</div>
+          </div>
+        </div>
+
+        <div class="examples">
+          <h3>Örnek Cümleler</h3>
+          <ul id="example-list"></ul>
+        </div>
+
+        <div class="actions-row">
+          <div class="left">
+            <button id="btn-prev" class="btn icon" title="Önceki (Geri)">⟵</button>
+            <button id="btn-next" class="btn icon" title="Sonraki">⟶</button>
+          </div>
+          <div class="right">
+            <button id="btn-save" class="btn success">Kaydet</button>
+            <button id="btn-note" class="btn">Not Ekle/Düzenle</button>
+            <button id="btn-delete" class="btn danger">Sil</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) KAYDEDİLMİŞLER -->
+    <section id="view-saved" class="view">
+      <nav class="main-nav">
+        <button id="back-home-2" class="btn">← Geri</button>
+        <div style="flex:1"></div>
+      </nav>
+
+      <div id="saved-empty" class="muted">Henüz kaydedilmiş kelime yok.</div>
+      <div id="saved-list" class="saved-list"></div>
+    </section>
+  </main>
+
+  <!-- Modal: Not -->
+  <dialog id="modal-note" class="modal">
+    <form method="dialog" class="modal-card">
+      <h3>Not Ekle / Düzenle</h3>
+      <textarea id="note-text" rows="5" placeholder="Bu kelime için ipucu / kendi cümlen..."></textarea>
+      <div class="modal-actions">
+        <button class="btn" value="cancel">İptal</button>
+        <button id="note-save" class="btn success" value="ok">Kaydet</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal: Sil Onayı -->
+  <dialog id="modal-confirm" class="modal">
+    <form method="dialog" class="modal-card">
+      <h3>Silinsin mi?</h3>
+      <p class="muted">Bu kelimeyi kaydedilenlerden kaldırmak istediğine emin misin?</p>
+      <div class="modal-actions">
+        <button class="btn" value="cancel">İptal</button>
+        <button id="confirm-yes" class="btn danger" value="ok">Onayla</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal: İstatistik -->
+  <dialog id="modal-stats" class="modal">
+    <form method="dialog" class="modal-card">
+      <h3>İstatistikler</h3>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="k">Bugün</div>
+          <div id="stat-today" class="v">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Toplam Öğrenilen</div>
+          <div id="stat-total" class="v">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Kaydedilen</div>
+          <div id="stat-saved" class="v">0</div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" value="ok">Kapat</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal: Quiz -->
+  <dialog id="modal-quiz" class="modal">
+    <form method="dialog" class="modal-card">
+      <h3>Mini Quiz (5 Soru)</h3>
+      <div id="quiz-area">
+        <div id="quiz-q" class="quiz-q">Soru burada</div>
+        <div id="quiz-opts" class="quiz-opts"></div>
+        <div id="quiz-foot" class="quiz-foot muted">
+          Soru <span id="quiz-n">0</span>/5 • Skor: <span id="quiz-score">0</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" value="cancel">Kapat</button>
+        <button id="quiz-restart" class="btn success" value="ok">Yeniden Başlat</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toast bildirimi (ekran içi) -->
+  <div id="toast"></div>
+
+  <!-- Kelime verileri -->
+  <script src="words.js"></script>
+  <!-- Uygulama kodu -->
+  <script src="script.js"></script>
+</body>
+</html>
